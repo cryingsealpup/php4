@@ -1,0 +1,136 @@
+<!doctype html>
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="max-w-md m-5 mx-auto bg-white shadow-md rounded-xl md:max-w-2xl">
+    <h1 class="text-3xl font-bold underline p-3">
+        Модуль 2. Расширенные методы
+    </h1>
+    <h2 class="font-bold  p-1">
+        Лабораторная 2.1 Реализация интерфейса кэширования
+
+    </h2>
+    <div class="p-3">
+        <ol class="list-decimal pl-8">
+            <li>
+                <details class="p-4 mb-5 shadow-lg rounded-xl">
+                    <summary class="flex items-center">
+                        Установите модуль composer require symfony/cache и реализуйте произвольную
+                        логику по кешированию данных
+                        <button class="ml-auto">
+                            <svg class="fill-current opacity-75 w-4 h-4 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"></path>
+                            </svg>
+                        </button>
+                    </summary>
+                    <p class="p-3"> После установки <code> composer require symfony/cache </code> package.json обновлен новой зависимостью:</p>
+                    <pre class="bg-black text-white whitespace-pre-wrap my-6">    "require": {
+        "symfony/cache": "6.4.x-dev"
+    }                </pre>
+                    <p class="p-3"> Теперь можно обратиться к модулю из любого файла, используя автозагрузку:</p>
+                    <pre class="bg-black text-white whitespace-pre-wrap my-6">    require_once '../vendor/autoload.php';
+    use Symfony\Component\Cache\Adapter\FilesystemAdapter;   
+    use Symfony\Contracts\Cache\ItemInterface;           
+</pre>
+                    <p class="p-3"> Почему здесь используется FilesystemAdapter вместо CacheItemInterface и CacheItemPoolInterface? 
+                        Согласно <a href="https://symfony.ru/doc/current/components/cache.html" previewlistener="true">документации, Symphony cache реализует 
+                         два подхода к кэшированию: контаракты кэширования и PSR-6. Фреймворк дает рекомендацию использовать 
+                         первый вариант, поскольку при нем не генерируется кэш по умолчанию и он более прост в использовании.</a>
+                    </p>
+                    <p class="p-3"> Инициализируем адаптер кэша:</p>
+                    <pre class="bg-black text-white whitespace-pre-wrap my-6">    $cache = new FilesystemAdapter('', 0, '../cache/symphony');           
+</pre>
+<p class="p-3"> Далее для хранения кэша создадим объект cache и попробуем извлекать и удалять кешированные данные (предварительно получив элемент по созданному ключу для подтверждения успеха):</p>
+<pre class="bg-black text-white whitespace-pre-wrap my-6">    use Symfony\Contracts\Cache\ItemInterface;
+
+// Вызываемое будет выполнено только в случае неудачи кеша.
+$value = $cache-&gt;get('my_cache_key', function (ItemInterface $item) {
+    $item-&gt;expiresAfter(3600);
+
+    // ... выполнить какой-то HTTP-запрос или сложные вычисления
+    $computedValue = 'foobar';
+
+    return $computedValue;
+});
+echo $value;
+// ... и удалить ключ кеша
+$cache-&gt;delete('my_cache_key');         
+</pre>
+
+                </details>
+        <p class="p-3 font-bold">
+            Результат (значение по ключу my_cache_key):
+            foobar        </p>                
+            </li>
+
+        </ol>
+
+
+    </div>
+    <h2 class="font-bold  p-3">
+    Лабораторная 2.2 Реализация другого интерфейса
+    </h2>
+    <div class="p-3">
+        <details class="p-4 shadow-lg rounded-xl" open="">
+            <summary class="flex items-center">
+            Реализуйте фрагмент кода, выполняющего GET или POST запрос к
+https://jsonplaceholder.typicode.com/ с помощью guzzle
+                <button class="ml-auto">
+                    <svg class="fill-current opacity-75 w-4 h-4 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"></path>
+                    </svg>
+                </button>
+            </summary>
+            <p class="my-6">Для демонстрации используется GET (синхронный запрос), в качестве подтверждения успеха выведем первый body из полученных результатов: </p>
+       <pre class="bg-black text-white whitespace-pre-wrap my-6">    $client = new \GuzzleHttp\Client();
+    $response = $client-&gt;request('GET', 'https://jsonplaceholder.typicode.com/posts/1/comments');
+    echo $response-&gt;getBody(); 
+        </pre>
+        </details>
+        <p class="p-3 font-bold">
+            Результат (body из GET-запроса):
+            </p><pre class="bg-black text-white whitespace-pre-wrap">            [
+  {
+    "postId": 1,
+    "id": 1,
+    "name": "id labore ex et quam laborum",
+    "email": "Eliseo@gardner.biz",
+    "body": "laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo necessitatibus\ndolor quam autem quasi\nreiciendis et nam sapiente accusantium"
+  },
+  {
+    "postId": 1,
+    "id": 2,
+    "name": "quo vero reiciendis velit similique earum",
+    "email": "Jayne_Kuhic@sydney.com",
+    "body": "est natus enim nihil est dolore omnis voluptatem numquam\net omnis occaecati quod ullam at\nvoluptatem error expedita pariatur\nnihil sint nostrum voluptatem reiciendis et"
+  },
+  {
+    "postId": 1,
+    "id": 3,
+    "name": "odio adipisci rerum aut animi",
+    "email": "Nikita@garfield.biz",
+    "body": "quia molestiae reprehenderit quasi aspernatur\naut expedita occaecati aliquam eveniet laudantium\nomnis quibusdam delectus saepe quia accusamus maiores nam est\ncum et ducimus et vero voluptates excepturi deleniti ratione"
+  },
+  {
+    "postId": 1,
+    "id": 4,
+    "name": "alias odio sit",
+    "email": "Lew@alysha.tv",
+    "body": "non et atque\noccaecati deserunt quas accusantium unde odit nobis qui voluptatem\nquia voluptas consequuntur itaque dolor\net qui rerum deleniti ut occaecati"
+  },
+  {
+    "postId": 1,
+    "id": 5,
+    "name": "vero eaque aliquid doloribus et culpa",
+    "email": "Hayden@althea.biz",
+    "body": "harum non quasi et ratione\ntempore iure ex voluptates in ratione\nharum architecto fugit inventore cupiditate\nvoluptates magni quo et"
+  }
+]            </pre>
+        <p></p>
+    </div>
+
+
+
+</body></html>

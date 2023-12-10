@@ -1,0 +1,87 @@
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="max-w-md m-5 mx-auto bg-white shadow-md rounded-xl md:max-w-2xl">
+    <h1 class="text-3xl font-bold underline p-3">
+        Модуль 5. Reflection
+    </h1>
+    <h2 class="font-bold  p-1">
+        Лабораторная Создание Middleware
+
+    </h2>
+    <div class="p-3">
+        <ol class="list-decimal pl-8">
+            <li>
+                <details class="p-4 mb-5 shadow-lg rounded-xl">
+                    <summary class="flex items-center">
+                        Получите информацию о методах класса Some
+                        <button class="ml-auto">
+                            <svg class="fill-current opacity-75 w-4 h-4 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"></path>
+                            </svg>
+                        </button>
+                    </summary>
+                                        <p class="p-3"> Немного изменю печать методов:</p>
+                    <pre class="bg-black text-white whitespace-pre-wrap">$refclass = new ReflectionClass("Some");
+$methods = get_class_methods("ReflectionClass");
+echo $refclass;
+foreach ($methods as $method) {
+
+    echo $refclass-&gt;hasMethod($method) ? $method.'<br>' : "";
+}       
+</pre>
+                    <p class="p-3"> Методы класса Some:
+                        __construct<br>                    </p>
+                    <p>
+
+                    </p>
+                </details>
+            </li>
+            <li>
+                <details class="p-4 mb-5 shadow-lg rounded-xl">
+                    <summary class="flex items-center">
+                        Получите сведения о модификаторах доступа и другой информации
+                        <button class="ml-auto">
+                            <svg class="fill-current opacity-75 w-4 h-4 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"></path>
+                            </svg>
+                        </button>
+                    </summary>
+                    <p>
+
+                        </p><pre><hr>Метод: Method [ <user, ctor=""> public method __construct ] {
+  @@ /var/www/html/labs/lab_5.php 6 - 9
+}
+<br>isUserDefined: 1<br>isInternal: <br>isPublic: 1<br>isAbstract: <br>isProtected: <br>isPublic: 1<br>isPrivate: <br>isStatic: <br>isFinal: <br>isConstructor: 1<br><hr>Метод: Method [ <user> public method someFunc ] {
+  @@ /var/www/html/labs/lab_5.php 10 - 13
+
+  - Parameters [2] {
+    Parameter #0 [ <optional> array $arr = [] ]
+    Parameter #1 [ <optional> $d = 45 ]
+  }
+}
+<br>isUserDefined: 1<br>isInternal: <br>isPublic: 1<br>isAbstract: <br>isProtected: <br>isPublic: 1<br>isPrivate: <br>isStatic: <br>isFinal: <br>isConstructor: <br></optional></optional></user></user,></pre>                    <p></p>
+                </details>
+            </li>
+            <li>
+                <details class="p-4 mb-5 shadow-lg rounded-xl">
+                    <summary class="flex items-center">
+                        Получите информацию о параметрах метода someFunc
+                        <button class="ml-auto">
+                            <svg class="fill-current opacity-75 w-4 h-4 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"></path>
+                            </svg>
+                        </button>
+                    </summary>
+                    <p>
+
+                        </p><pre><hr>Аргумент: arr<br>allowsNull: Parameter #0 [ <optional> array $arr = [] ]<br>getDefaultValue: Parameter #0 [ <optional> array $arr = [] ]<br>getName: Parameter #0 [ <optional> array $arr = [] ]<br>getPosition: Parameter #0 [ <optional> array $arr = [] ]<br>isArray: Parameter #0 [ <optional> array $arr = [] ]<br>isCallable: Parameter #0 [ <optional> array $arr = [] ]<br><hr>Аргумент: d<br>allowsNull: Parameter #1 [ <optional> $d = 45 ]<br>getDefaultValue: Parameter #1 [ <optional> $d = 45 ]<br>getName: Parameter #1 [ <optional> $d = 45 ]<br>getPosition: Parameter #1 [ <optional> $d = 45 ]<br>isArray: Parameter #1 [ <optional> $d = 45 ]<br>isCallable: Parameter #1 [ <optional> $d = 45 ]<br></optional></optional></optional></optional></optional></optional></optional></optional></optional></optional></optional></optional></pre>                    <p></p>
+                </details>
+            </li>
+        </ol>
+
+
+    </div>
+</body></html>

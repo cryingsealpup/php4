@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="max-w-md m-5 mx-auto bg-white shadow-md rounded-xl md:max-w-2xl">
+    <h1 class="text-3xl font-bold underline p-3">
+        Модуль 1. Продвинутые возможности
+    </h1>
+    <h2 class="font-bold  p-1">
+        Лабораторная 1.1 Работа с объектно-ориентированными
+        возможностями по теме модуля
+    </h2>
+    <div class="p-3">
+        <ol class="list-decimal pl-8">
+            <li>
+                <details class="p-4 mb-5 shadow-lg rounded-xl">
+                    <summary class="flex items-center">
+                        Создайте переменную на основе new \DateTime()
+                        <button class="ml-auto">
+                            <svg class="fill-current opacity-75 w-4 h-4 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"></path>
+                            </svg>
+                        </button>
+                    </summary>
+                    <pre class="bg-black text-white whitespace-pre-wrap my-6">    $date = new DateTime();
+                </pre>
+                </details>
+            </li>
+            <li>
+                <details class="p-4 shadow-lg rounded-xl">
+                    <summary class="flex items-center">
+                        С помощью метода setTimestamp() установите количество секунд, прошедших от 1970 до 12 апреля 1961
+                        <button class="ml-auto">
+                            <svg class="fill-current opacity-75 w-4 h-4 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"></path>
+                            </svg>
+                        </button>
+                    </summary>
+                    <pre class="bg-black text-white whitespace-pre-wrap my-6">    $start = new DateTime("1970-01-01");
+    $end = new DateTime("1961-12-04");
+    $diff = $end-&gt;diff($start)-&gt;days * 86400;
+                </pre>
+                </details>
+                            </li>
+            <li>
+                <details class="p-4 shadow-lg rounded-xl">
+                    <summary class="flex items-center">
+                        С помощью метода setTimezone установите часовой пояc DateTimeZone::EUROPE
+                        <button class="ml-auto">
+                            <svg class="fill-current opacity-75 w-4 h-4 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"></path>
+                            </svg>
+                        </button>
+                    </summary>
+                    <pre class="bg-black text-white whitespace-pre-wrap my-6">    $date -&gt; setTimestamp($diff) -&gt; setTimezone(new DateTimeZone('Europe/Moscow'));
+                </pre>
+                </details>
+            </li>
+            <li>
+                <details class="p-4 shadow-lg rounded-xl">
+                    <summary class="flex items-center">
+                        Отформатируйте дату через метод format('Y/m/d H:i:s') и выведите данные
+                        <button class="ml-auto">
+                            <svg class="fill-current opacity-75 w-4 h-4 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"></path>
+                            </svg>
+                        </button>
+                    </summary>
+                    <pre class="bg-black text-white whitespace-pre-wrap my-6">    echo $date -&gt; format('Y/m/d H:i:s');
+                </pre>
+                </details>
+            </li>
+        </ol>
+
+        <p class="p-3 font-bold">
+            Результат (дата в формате 'Y/m/d H:i:s'):
+            1978/01/29 03:00:00        </p>
+    </div>
+    <h2 class="font-bold  p-3">
+        Лабораторная 1.2 Реализация автозагрузки
+    </h2>
+    <div class="p-3">
+        <details class="p-4 shadow-lg rounded-xl">
+            <summary class="flex items-center">
+                Реализуйте PSR-4 автозагрузку своих файлов через composer
+                <button class="ml-auto">
+                    <svg class="fill-current opacity-75 w-4 h-4 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"></path>
+                    </svg>
+                </button>
+            </summary>
+            <p class="my-6">Для демонстрации автозагрузки в этом файле подключается файл Cats, созданный на одном из занятий, содержащий класс Cat: </p>
+            <pre class="bg-black text-white whitespace-pre-wrap my-6">    namespace Examples;
+    require_once "../vendor/autoload.php";
+    use DateTime;
+    use DateTimeZone;
+        </pre>
+        <p class="my-6">Пространство имен Examples определено для автозагрузки PSR-4 в composer.json:  </p>
+            <pre class="bg-black text-white whitespace-pre-wrap my-6">            "autoload": {
+        "psr-4": {
+            "Examples\\": "examples/"
+        }
+    },
+        </pre>
+            <p class="my-6"> В этом коде так же вызываются стандартные библиотеки php (DateTime и DateTimeZone). Это необходимо для корректной работы кода в части 1.1 лабораторной работы.</p>
+            <p class="my-6"> Далее создадим и напечатаем объект класса cats:</p>
+            <pre class="bg-black text-white whitespace-pre-wrap my-6">    $cat1 = new Cat('coco');
+    echo $cat1 -&gt; name;
+        </pre>
+        </details>
+        <p class="p-3 font-bold">
+            Результат (параметр name созданного подгруженного через автозагрузку класса Cat):
+            coco        </p>
+    </div>
+
+
+
+</body></html>
